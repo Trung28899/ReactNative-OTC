@@ -102,7 +102,8 @@ const LoginScreen = (props) => {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: Color.color_white
+        backgroundColor: Color.color_white,
+        paddingTop: 10
     },
     screenTitle: {
         fontSize: RFPercentage(2.8),
