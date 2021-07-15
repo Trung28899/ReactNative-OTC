@@ -12,6 +12,10 @@ import * as Constants from '../../constants/const';
 import * as Strings from '../../constants/strings';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { useSelector } from 'react-redux';
+import { 
+    validateUsername, 
+    validatePassword 
+} from '../../services/authValidator/validator';
 
 // Components Import
 import { LoginInput } from './components/loginInput';
@@ -20,9 +24,15 @@ import { AuthFooter } from '../../components/authFooter';
 import { AuthLanguageDropdown } from '../../components/authLanguageDropdown';
 
 const LoginScreen = (props) => {
+    // Storing Inputs
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [isSecure, setIsSecure] = React.useState(true);
+    // const [isValidated, setIsValidated] = React.useState(false);
+
+    // Handling Error Messages
+    // const [usernameError, setUsernameError] = React.useState('');
+    // const [passwordError, setPasswordError] = React.useState('');
 
     const language = useSelector(state => state.app.language);
 
@@ -31,7 +41,8 @@ const LoginScreen = (props) => {
     };
 
     const handleLogin = () => {
-
+        // setUsernameError(validateUsername(username, language));
+        // setPasswordError(validatePassword(password, language));
     };
 
     const handleSignup = () => {
@@ -47,7 +58,10 @@ const LoginScreen = (props) => {
 
             <View style={styles.container2}>
                 <View style={{ width: '100%', height: '100%' }}>
-                    <Text style={styles.inputTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.email) : (Strings.English.signIn.email)}</Text>
+                    <View style={styles.validationContainer}>
+                        <Text style={styles.inputTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.email) : (Strings.English.signIn.email)}</Text>
+                        {/* <Text style={styles.subtitle}>{usernameError}</Text> */}
+                    </View>
                     <LoginInput 
                     inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.placeHolder.email) : (Strings.English.signIn.placeHolder.email)}
                     onChangeText={username => setUsername(username)}
@@ -56,7 +70,10 @@ const LoginScreen = (props) => {
                     reveal={false}
                     />
 
-                    <Text style={styles.inputTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.password) : (Strings.English.signIn.password)}</Text>
+                    <View style={styles.validationContainer}>
+                        <Text style={styles.inputTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.password) : (Strings.English.signIn.password)}</Text>
+                        {/* <Text style={styles.subtitle}>{passwordError}</Text> */}
+                    </View>
                     <LoginInput 
                     inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.placeHolder.password) : (Strings.English.signIn.placeHolder.password)}
                     onChangeText={password => setPassword(password)}
@@ -106,10 +123,16 @@ const styles = StyleSheet.create({
         paddingTop: 10
     },
     screenTitle: {
-        fontSize: RFPercentage(2.8),
+        fontSize: RFPercentage(2.5),
         fontWeight: 'bold',
         color: Color.color_black,
         marginTop: 30
+    },
+    subtitle: {
+        fontSize: RFPercentage(2),
+        fontWeight: 'bold',
+        color: Color.color_warning,
+        marginLeft: 5
     },
     container1: {
         flex: 1,
@@ -151,6 +174,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    validationContainer: {
+        flex: 1,
+        flexDirection: 'row'
+    }
 });
 
 export default LoginScreen;

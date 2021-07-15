@@ -12,6 +12,7 @@ import * as Strings from '../../constants/strings';
 import * as Constants from '../../constants/const';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { useSelector } from 'react-redux';
+import { validateEmail } from '../../services/authValidator/validator';
 
 // Components Import
 import { AuthLanguageDropdown } from '../../components/authLanguageDropdown';
@@ -21,11 +22,13 @@ import { LoginButton } from '../login-screen/components/loginButton';
 
 const ResetPwdScreen = (props) => {
     const [email, setEmail] = React.useState('');
+    const [emailError, setEmailError] = React.useState('');
+    // const [isValidated, setIsValidated] = React.useState(false);
 
     const language = useSelector(state => state.app.language);
 
     const handleResetPassword = () => {
-
+        // setEmailError(validateEmail(email, language));
     }
 
     return (
@@ -33,11 +36,14 @@ const ResetPwdScreen = (props) => {
             <AuthLanguageDropdown />
             <View style={styles.container1}>
                 <Text style={styles.screenTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.retrieve.title) : (Strings.English.retrieve.title)}</Text>
-                <Text style={styles.subTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.retrieve.explain) : (Strings.English.retrieve.explain)}</Text>
+                <Text style={styles.subtitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.retrieve.explain) : (Strings.English.retrieve.explain)}</Text>
             </View>
 
             <View style={styles.container2}>
-                <Text style={styles.subTitle}>{Strings.Vietnamese.retrieve.email}</Text>
+                <View style={styles.validationContainer}>
+                    <Text style={styles.subtitle}>{Strings.Vietnamese.retrieve.email}</Text>
+                    {/* <Text style={styles.subtitle3}>{emailError}</Text> */}
+                </View>
                 <LoginInput 
                 inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.retrieve.placeHolder.email) : (Strings.English.retrieve.placeHolder.email)}
                 onChangeText={email => setEmail(email)}
@@ -53,7 +59,7 @@ const ResetPwdScreen = (props) => {
 
                 <View style={styles.clickContainer}>
                     <TouchableOpacity onPress={() => props.navigation.goBack() }>
-                        <Text style={styles.subTitle2}>{(language.name === Constants.VN) ? (Strings.Vietnamese.retrieve.signin) : (Strings.English.retrieve.signin)}</Text>
+                        <Text style={styles.subtitle2}>{(language.name === Constants.VN) ? (Strings.Vietnamese.retrieve.signin) : (Strings.English.retrieve.signin)}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -72,23 +78,27 @@ const styles = StyleSheet.create({
         paddingTop: 10
     },
     screenTitle: {
-        fontSize: RFPercentage(2.8),
+        fontSize: RFPercentage(2.5),
         fontWeight: 'bold',
         color: Color.color_black,
         marginTop: 30
     },
-    subTitle: {
+    subtitle: {
         fontSize: RFPercentage(2),
         fontWeight: 'bold',
-        color: Color.color_black,
-        marginTop: 15,
-        marginBottom: 10
+        color: Color.color_black
     },
-    subTitle2: {
+    subtitle2: {
         fontSize: RFPercentage(2.2),
         fontWeight: 'bold',
         color: Color.text_pressable,
         marginTop: 15
+    },
+    subtitle3: {
+        fontSize: RFPercentage(2),
+        fontWeight: 'bold',
+        color: Color.color_warning,
+        marginLeft: 5
     },
     container1: {
         flex: 1,
@@ -110,6 +120,11 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    validationContainer: {
+        flexDirection: 'row',
+        marginTop: 15,
+        marginBottom: 10
     }
 });
 

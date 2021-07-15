@@ -11,7 +11,7 @@ import Color from '../../themes/colors';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import * as Strings from '../../constants/strings';
 import * as Constants from '../../constants/const';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Components Import
 import { AuthLanguageDropdown } from '../../components/authLanguageDropdown';
@@ -19,19 +19,40 @@ import { LoginInput } from '../login-screen/components/loginInput';
 import { LoginButton } from '../login-screen/components/loginButton';
 
 // Services Import
+import { 
+    validateEmail,
+    validateFullname,
+    validateUsername,
+    validateSerialNo,
+    validatePassword 
+} from '../../services/authValidator/validator';
 
 const SignupScreen = (props) => {
+    // Storing Inputs
     const [email, setEmail] = React.useState('');
     const [name, setName] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [cardno, setCardno] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [isSecure, setIsSecure] = React.useState(true);
+    // const [isValidated, setIsValidated] = React.useState(false);
 
+    // Handling Error Messages
+    // const [emailError, setEmailError] = React.useState('');
+    // const [fnameError, setFnameError] = React.useState('');
+    // const [unameError, setUnameError] = React.useState('');
+    // const [serialError, setSerialError] = React.useState('');
+    // const [passwordError, setPasswordError] = React.useState('');
+
+    //const dispatch = useDispatch();
     const language = useSelector(state => state.app.language);
 
     const handleRegister = () => {
-
+        // setEmailError(validateEmail(email, language));
+        // setFnameError(validateFullname(name, language));
+        // setUnameError(validateUsername(username, language));
+        // setSerialError(validateSerialNo(cardno, language));
+        // setPasswordError(validatePassword(password, language));
     };
 
     return (
@@ -42,7 +63,10 @@ const SignupScreen = (props) => {
             </View>
 
             <View style={styles.container2}>
-                <Text style={styles.subTitle}>{Strings.Vietnamese.signUp.email}</Text>
+                <View style={styles.validationContainer}>
+                    <Text style={styles.subtitle}>{Strings.Vietnamese.signUp.email}</Text>
+                    {/* <Text style={styles.subtitle2}>{emailError}</Text> */}
+                </View>
                 <LoginInput 
                 inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.placeHolder.email) : (Strings.English.signUp.placeHolder.email)}
                 onChangeText={email => setEmail(email)}
@@ -51,7 +75,10 @@ const SignupScreen = (props) => {
                 reveal={false}
                 />
 
-                <Text style={styles.subTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.fullname) : (Strings.English.signUp.fullname)}</Text>
+                <View style={styles.validationContainer}>
+                    <Text style={styles.subtitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.fullname) : (Strings.English.signUp.fullname)}</Text>
+                    {/* <Text style={styles.subtitle2}>{fnameError}</Text> */}
+                </View>
                 <LoginInput 
                 inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.placeHolder.fullname) : (Strings.English.signUp.placeHolder.fullname)}
                 onChangeText={name => setName(name)}
@@ -60,7 +87,10 @@ const SignupScreen = (props) => {
                 reveal={false}
                 />
 
-                <Text style={styles.subTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.username) : (Strings.English.signUp.username)}</Text>
+                <View style={styles.validationContainer}>
+                    <Text style={styles.subtitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.username) : (Strings.English.signUp.username)}</Text>
+                    {/* <Text style={styles.subtitle2}>{unameError}</Text> */}
+                </View>
                 <LoginInput 
                 inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.placeHolder.username) : (Strings.English.signUp.placeHolder.username)}
                 onChangeText={username => setUsername(username)}
@@ -69,7 +99,10 @@ const SignupScreen = (props) => {
                 reveal={false}
                 />
 
-                <Text style={styles.subTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.serialCode) : (Strings.English.signUp.serialCode)}</Text>
+                <View style={styles.validationContainer}>
+                    <Text style={styles.subtitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.serialCode) : (Strings.English.signUp.serialCode)}</Text>
+                    {/* <Text style={styles.subtitle2}>{serialError}</Text> */}
+                </View>
                 <LoginInput 
                 inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.placeHolder.serialNo) : (Strings.English.signUp.placeHolder.serialNo)}
                 onChangeText={cardno => setCardno(cardno)}
@@ -78,7 +111,10 @@ const SignupScreen = (props) => {
                 reveal={false}
                 />
 
-                <Text style={styles.subTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.password) : (Strings.English.signUp.password)}</Text>
+                <View style={styles.validationContainer}>
+                    <Text style={styles.subtitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.password) : (Strings.English.signUp.password)}</Text>
+                    {/* <Text style={styles.subtitle2}>{passwordError}</Text> */}
+                </View>
                 <LoginInput 
                 inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signUp.placeHolder.password) : (Strings.English.signUp.placeHolder.password)}
                 onChangeText={password => setPassword(password)}
@@ -117,11 +153,16 @@ const styles = StyleSheet.create({
         color: Color.color_black,
         marginTop: 30
     },
-    subTitle: {
+    subtitle: {
         fontSize: RFPercentage(2),
         fontWeight: 'bold',
-        color: Color.color_black,
-        marginBottom: 5
+        color: Color.color_black
+    },
+    subtitle2: {
+        fontSize: RFPercentage(2),
+        fontWeight: 'bold',
+        color: Color.color_warning,
+        marginLeft: 5
     },
     container1: {
         flex: 1,
@@ -129,7 +170,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     container2: {
-        flex: 5,
+        flex: 5.5,
         paddingHorizontal: 40
     },
     textContainer: {
@@ -149,6 +190,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Color.text_pressable,
         marginLeft: 10
+    },
+    validationContainer: {
+        flex: 1,
+        flexDirection: 'row'
     }
 });
 

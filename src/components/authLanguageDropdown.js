@@ -68,9 +68,9 @@ export const AuthLanguageDropdown = (props) => {
 const styles = StyleSheet.create({
     container: {
         height: 50,
-        width: 150,
+        width: 160,
         position: 'absolute',
-        marginRight: 10,
+        marginRight: 20,
         marginTop: 15,
         right: 0,
         top: 20,

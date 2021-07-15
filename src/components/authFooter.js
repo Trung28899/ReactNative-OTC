@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonContainer: {
-        width: 150,
+        width: '40%',
         height: '50%'
     },
     viewContainer: {
