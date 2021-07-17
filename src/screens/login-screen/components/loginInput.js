@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 50,
-        borderRadius: 10,
-        borderColor: Color.color_black,
+        borderRadius: 5,
+        borderColor: Color.border_primary,
         borderWidth: 1,
         marginBottom: 20,
         flexDirection: 'row',

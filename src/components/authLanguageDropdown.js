@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         marginRight: 20,
         marginTop: 15,
-        right: 0,
-        top: 20,
+        right: 5,
+        top: 35,
         paddingHorizontal: 5
     },
     imageContainer: {

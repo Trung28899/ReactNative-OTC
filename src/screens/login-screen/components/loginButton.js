@@ -27,17 +27,17 @@ export const LoginButton = (props) => {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 55,
+        height: 45,
     },
     buttonContainer: {
         flex: 1,
         backgroundColor: Color.text_pressable,
-        borderRadius: 25,
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center'
     },
     button: {
-        fontSize: RFPercentage(2.2),
+        fontSize: RFPercentage(2),
         fontWeight: 'bold',
         color: Color.color_white
     }

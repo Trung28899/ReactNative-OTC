@@ -28,11 +28,6 @@ const LoginScreen = (props) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [isSecure, setIsSecure] = React.useState(true);
-    // const [isValidated, setIsValidated] = React.useState(false);
-
-    // Handling Error Messages
-    // const [usernameError, setUsernameError] = React.useState('');
-    // const [passwordError, setPasswordError] = React.useState('');
 
     const language = useSelector(state => state.app.language);
 
@@ -41,8 +36,7 @@ const LoginScreen = (props) => {
     };
 
     const handleLogin = () => {
-        // setUsernameError(validateUsername(username, language));
-        // setPasswordError(validatePassword(password, language));
+
     };
 
     const handleSignup = () => {
@@ -52,65 +46,55 @@ const LoginScreen = (props) => {
     return (
         <View style={styles.screen}>
             <AuthLanguageDropdown />
+            
             <View style={styles.container1}>
-                <Text style={styles.screenTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.title + ' ' + Strings.Vietnamese.signIn.title2) : (Strings.English.signIn.title + ' ' + Strings.English.signIn.title2)}</Text>
+                <Text style={styles.screenTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.title) : (Strings.English.signIn.title)}</Text>
+                <Text style={styles.screenTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.title2) : (Strings.English.signIn.title2)}</Text>
             </View>
 
             <View style={styles.container2}>
-                <View style={{ width: '100%', height: '100%' }}>
-                    <View style={styles.validationContainer}>
-                        <Text style={styles.inputTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.email) : (Strings.English.signIn.email)}</Text>
-                        {/* <Text style={styles.subtitle}>{usernameError}</Text> */}
-                    </View>
-                    <LoginInput 
-                    inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.placeHolder.email) : (Strings.English.signIn.placeHolder.email)}
-                    onChangeText={username => setUsername(username)}
-                    value={username}
-                    secureText={false}
-                    reveal={false}
-                    />
+                <Text style={styles.inputTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.email) : (Strings.English.signIn.email)}</Text>
+                <LoginInput 
+                inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.placeHolder.email) : (Strings.English.signIn.placeHolder.email)}
+                onChangeText={username => setUsername(username)}
+                value={username}
+                secureText={false}
+                reveal={false}
+                />
 
-                    <View style={styles.validationContainer}>
-                        <Text style={styles.inputTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.password) : (Strings.English.signIn.password)}</Text>
-                        {/* <Text style={styles.subtitle}>{passwordError}</Text> */}
-                    </View>
-                    <LoginInput 
-                    inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.placeHolder.password) : (Strings.English.signIn.placeHolder.password)}
-                    onChangeText={password => setPassword(password)}
-                    value={password}
-                    secureText={isSecure}
-                    reveal={true}
-                    revealFunc={() => setIsSecure(!isSecure)}
-                    iconName={isSecure ? 'eye-outline' : 'eye-off-outline'}
-                    />
+                <Text style={styles.inputTitle}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.password) : (Strings.English.signIn.password)}</Text>
+                <LoginInput 
+                inputText={(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.placeHolder.password) : (Strings.English.signIn.placeHolder.password)}
+                onChangeText={password => setPassword(password)}
+                value={password}
+                secureText={isSecure}
+                reveal={true}
+                revealFunc={() => setIsSecure(!isSecure)}
+                iconName={isSecure ? 'eye-outline' : 'eye-off-outline'}
+                />  
 
-                    <View style={styles.forgotPwdContainer}>
-                        <TouchableOpacity 
-                        onPress={handleForgotPassword}
-                        >
-                            <Text style={styles.clickableText}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.button.forgot) : (Strings.English.signIn.button.forgot)}</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <LoginButton 
-                    loginFunc={handleLogin}
-                    buttonTitle={(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.button.signin) : (Strings.English.signIn.button.signin)}
-                    />
-
-                    <View style={styles.registerContainer}>
-                        <Text style={styles.normalText}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.signUpTitle) : (Strings.English.signIn.signUpTitle)}</Text>
-                        <TouchableOpacity
-                        onPress={handleSignup}
-                        style={{ marginLeft: 10 }}
-                        >
-                            <Text style={styles.clickableText}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.button.signup) : (Strings.English.signIn.button.signup)}</Text>
-                        </TouchableOpacity>
-                    </View>
+                <View style={styles.forgotPwdContainer}>
+                    <TouchableOpacity 
+                    onPress={handleForgotPassword}
+                    >
+                        <Text style={styles.clickableText}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.button.forgot) : (Strings.English.signIn.button.forgot)}</Text>
+                    </TouchableOpacity>
                 </View>
-            </View>
 
-            <View style={styles.container3}>
-                <AuthFooter />
+                <LoginButton 
+                loginFunc={handleLogin}
+                buttonTitle={(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.button.signin) : (Strings.English.signIn.button.signin)}
+                />
+
+                <View style={styles.registerContainer}>
+                    <Text style={styles.normalText}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.signUpTitle) : (Strings.English.signIn.signUpTitle)}</Text>
+                    <TouchableOpacity
+                    onPress={handleSignup}
+                    style={{ marginLeft: 10 }}
+                    >
+                        <Text style={styles.clickableText}>{(language.name === Constants.VN) ? (Strings.Vietnamese.signIn.button.signup) : (Strings.English.signIn.button.signup)}</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
@@ -122,44 +106,29 @@ const styles = StyleSheet.create({
         backgroundColor: Color.color_white,
         paddingTop: 10
     },
-    screenTitle: {
-        fontSize: RFPercentage(2.5),
-        fontWeight: 'bold',
-        color: Color.color_black,
-        marginTop: 30
-    },
-    subtitle: {
-        fontSize: RFPercentage(2),
-        fontWeight: 'bold',
-        color: Color.color_warning,
-        marginLeft: 5
-    },
     container1: {
         flex: 1,
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        justifyContent: 'center'
+        paddingBottom: 40
     },
     container2: {
-        flex: 2.3,
-        alignItems: 'center',
-        paddingHorizontal: 30,
+        flex: 2.5,
+        paddingHorizontal: 45
     },
-    container3: {
-        flex: 2,
-        justifyContent: 'flex-end'
+    screenTitle: {
+        fontSize: RFPercentage(3),
+        fontWeight: 'bold',
+        color: Color.color_black
     },
     inputTitle: {
-        fontSize: RFPercentage(2),
+        fontSize: RFPercentage(1.8),
         fontWeight: 'bold',
         color: Color.color_black,
         marginBottom: 10
     },
-    normalText: {
-        fontSize: RFPercentage(2),
-        color: Color.color_black
-    },
     clickableText: {
-        fontSize: RFPercentage(2),
+        fontSize: RFPercentage(1.8),
         color: Color.text_pressable,
         fontWeight: 'bold'
     },
@@ -171,12 +140,12 @@ const styles = StyleSheet.create({
     registerContainer: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: 15
     },
-    validationContainer: {
-        flex: 1,
-        flexDirection: 'row'
+    normalText: {
+        fontSize: RFPercentage(1.8),
+        color: Color.color_black
     }
 });
 
